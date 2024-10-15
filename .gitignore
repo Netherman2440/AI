@@ -1,0 +1,125 @@
+# Pliki środowiskowe
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Pliki bytecode Pythona
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Pliki dystrybucji / pakowania
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Pliki PyInstaller
+*.manifest
+*.spec
+
+# Pliki jednostkowych testów / pokrycia kodu
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Pliki tłumaczeń
+*.mo
+*.pot
+
+# Pliki Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Pliki Flask
+instance/
+.webassets-cache
+
+# Pliki Scrapy
+.scrapy
+
+# Dokumentacja Sphinx
+docs/_build/
+
+# PyBuilder
+.pybuilder/
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# Pliki pyenv
+.python-version
+
+# Pliki celery beat schedule
+celerybeat-schedule
+celerybeat.pid
+
+# Pliki SageMath parsed
+*.sage.py
+
+# Pliki Spyder project
+.spyderproject
+.spyproject
+
+# Pliki Rope project
+.ropeproject
+
+# Pliki mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype static type analyzer
+.pytype/
+
+# Pliki Cython debug symbols
+cython_debug/
+
+# Pliki PyCharm
+.idea/
+
+# Pliki VS Code
+.vscode/
+
+# Pliki systemu macOS
+.DS_Store
