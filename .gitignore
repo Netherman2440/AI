@@ -123,3 +123,58 @@ cython_debug/
 
 # Pliki systemu macOS
 .DS_Store
+
+# Katalogi budowania i debugowania
+bin/
+obj/
+
+# Pliki konfiguracyjne Visual Studio
+.vs/
+*.user
+*.userosscache
+*.sln.docstates
+
+# Pliki konfiguracyjne Visual Studio Code
+.vscode/
+
+# Pliki tymczasowe
+[Tt]emp/
+[Tt]mp/
+
+# Pliki cache
+*.cache
+*.log
+
+# Pliki pakietów NuGet
+*.nupkg
+# Katalog pakietów NuGet
+packages/
+
+# Pliki wykonywalne
+*.exe
+*.dll
+*.pdb
+
+# Pliki specyficzne dla systemu operacyjnego
+.DS_Store
+Thumbs.db
+
+# Pliki projektu Rider (jeśli używasz JetBrains Rider)
+.idea/
+
+# Pliki konfiguracyjne użytkownika
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Pliki wynikowe testów
+TestResults/
+
+# Pliki specyficzne dla .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Pliki Cursor (jeśli są jakieś specyficzne)
+.cursor/
