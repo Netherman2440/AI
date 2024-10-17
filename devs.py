@@ -1,34 +1,36 @@
+from asyncio import Task
 import os
-import openai
+from openai import OpenAI
 from dotenv import load_dotenv
+import asyncio
 
-# Załaduj zmienne środowiskowe z pliku .env
+# Load environment variables from .env file
 load_dotenv()
 
-# Pobierz klucz API z zmiennych środowiskowych
-openai.api_key = os.getenv("OPENAI_API_KEY")
+client = OpenAI(
+    api_key=os.getenv('OPENAI_API_KEY'),
+    organization=os.getenv('OPENAI_ORGANIZATION'),
+    project=os.getenv('OPENAI_PROJECT_ID')
+)
 
-def create_openai_request(prompt, model="gpt-3.5-turbo", max_tokens=150):
-    """
-    Funkcja do tworzenia zapytań do API OpenAI.
-    
-    :param prompt: Tekst zapytania
-    :param model: Model GPT do użycia (domyślnie gpt-3.5-turbo)
-    :param max_tokens: Maksymalna liczba tokenów w odpowiedzi
-    :return: Odpowiedź od API OpenAI
-    """
-    try:
-        response = openai.ChatCompletion.create(
-            model=model,
-            messages=[{"role": "user", "content": prompt}],
-            max_tokens=max_tokens
-        )
-        return response.choices[0].message.content.strip()
-    except Exception as e:
-        return f"Wystąpił błąd: {str(e)}"
+async def askAI(question) -> Task[str]:
+    chat_completion = client.chat.completions.create(
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": question},
+        ],
+        model="gpt-3.5-turbo",
+        max_tokens=150,
+    )
+    return chat_completion.choices[0].message.content
 
-# Przykład użycia
 if __name__ == "__main__":
-    user_prompt = input("Wprowadź swoje zapytanie: ")
-    result = create_openai_request(user_prompt)
-    print(f"Odpowiedź API:\n{result}")
+    async def main():
+        while True:
+            user_input = input("Enter your question (or 'exit' to quit): ")
+            if user_input.lower() == "exit":
+                break
+            response = await askAI(user_input)
+            print(response)
+
+    asyncio.run(main())
