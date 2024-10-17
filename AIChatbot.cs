@@ -7,6 +7,7 @@ public class AIChatbot
 {
     private readonly HttpClient httpClient = new HttpClient();
 
+    public string systemPrompt = "You are a helpful assistant";
     private readonly string ApiKey;
 
     public AIChatbot()
@@ -15,7 +16,24 @@ public class AIChatbot
 
         ApiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY") ?? throw new Exception("OPENAI_API_KEY is not set in the .env file.");
     }
-    public string AskGPTSync(string system, string user, string model = "gpt-4o")
+
+    public async void ChatGPT()
+    {
+        while (true)
+        {
+            Console.WriteLine("Podaj swoje pytanie: (exit - wyjdz)");
+            string userInput = Console.ReadLine();
+
+            if (userInput == "exit")
+            {
+                break;
+            }
+
+           var response = await AskGPTSync(systemPrompt, userInput);
+           Console.WriteLine(response);
+        }
+    }
+    public async Task<string> AskGPTSync(string user, string system = "" ,string model = "gpt-4o")
     {
         var data = new JObject
         {
@@ -35,7 +53,7 @@ public class AIChatbot
         HttpResponseMessage result;
         try
         {
-            result = httpClient.PostAsync("https://api.openai.com/v1/chat/completions", content).GetAwaiter().GetResult();
+            result = await httpClient.PostAsync("https://api.openai.com/v1/chat/completions", content);
         }
         catch (HttpRequestException e)
         {
