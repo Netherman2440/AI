@@ -11,11 +11,9 @@ public class AIChatbot
 
     public AIChatbot()
     {
-        // Wczytaj zmienne z pliku .env
         DotNetEnv.Env.Load();
 
         ApiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY") ?? throw new Exception("OPENAI_API_KEY is not set in the .env file.");
-
     }
     public string AskGPTSync(string system, string user, string model = "gpt-4o")
     {
@@ -30,8 +28,6 @@ public class AIChatbot
         };
 
         DotNetEnv.Env.Load();
-
-        string ApiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY") ?? throw new Exception("OPENAI_API_KEY is not set");
 
         var content = new StringContent(data.ToString(), Encoding.UTF8, "application/json");
         httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", ApiKey);
