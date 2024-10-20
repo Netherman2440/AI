@@ -37,7 +37,7 @@ public class Poligon
 
         Console.WriteLine(userMessage);
 
-        var response =  await chatbot.AskGPTSync(userMessage);
+        var response =  await chatbot.Chat(userMessage);
 
         Console.WriteLine(response);
 

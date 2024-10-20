@@ -1,10 +1,7 @@
 ﻿using AI;
 
-Console.WriteLine("Hello, World!");
 
-Poligon poligon = new();
+AIChatbot chatbot = new();
 
-await poligon.ZeroTask();
-
-
+await chatbot.ChatGPT();
 
