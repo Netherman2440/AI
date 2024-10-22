@@ -1,7 +1,14 @@
 ﻿using AI;
 
 
-AIChatbot chatbot = new();
+//AIChatbot chatbot = new();
 
-await chatbot.ChatGPT();
+//await chatbot.ChatGPT();
 
+//AudioReader audioReader = new AudioReader();
+
+//audioReader.Read();
+
+SheetGenerator sheetGenerator = new SheetGenerator();
+
+sheetGenerator.MidFile();
