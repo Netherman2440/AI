@@ -1,6 +1,7 @@
-TOKEN = '7824624873:AAG3DsSQ0ZFLN0l63oqeS8J_GAWBfp01sDQ'
 TELEGRAM_BOT_NAME = '@netherman_bot'
 
+import os
+from dotenv import load_dotenv
 from telegram import MenuButtonWebApp, Update, InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 
@@ -47,8 +48,11 @@ async def handle_error(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(f" error")
 
 if __name__ == "__main__":
+
+    load_dotenv()
+    TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
     print('start bot...')
-    app = Application.builder().token(TOKEN).build()
+    app = Application.builder().token(TELEGRAM_TOKEN).build()
 
     app.add_handler (CommandHandler('start', start_command))
 

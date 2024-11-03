@@ -17,6 +17,8 @@ class ChatBot:
         )
     
 
+    
+
     async def askAI(self, question: str, chatHistory: list[dict]) -> Task[str]:
         
         messages = []
