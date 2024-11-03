@@ -4,6 +4,8 @@ using System.IO;
 using Newtonsoft.Json;
 using NAudio.Midi;
 
+
+
 public class MidiConverter
 {
     public void JsonToMidi(string inputJsonPath, string outputMidiPath)
@@ -64,10 +66,10 @@ public class MidiConverter
                     int patchNumber = Convert.ToInt32(midiEvent["Instrument"]);
                     trackEvents.Add(new PatchChangeEvent(absoluteTime, 1, patchNumber));
                     break;*/
-                /*case "RawMetaEvent":
+                case "RawMetaEvent":
                     byte[] rawData = (byte[])midiEvent["RawMetaEvent"];
-                    trackEvents.Add(new RawMetaEvent(MetaEventType.TrackSequenceNumber, absoluteTime, rawData));
-                    break;*/
+                    trackEvents.Add(new RawMetaEvent(MetaEventType.KeySignature, absoluteTime, rawData));
+                    break;
                 
                 default:
                     Console.WriteLine($"Unrecognized event type: {midiEvent["EventType"]}");

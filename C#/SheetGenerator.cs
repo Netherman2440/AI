@@ -5,6 +5,12 @@ using System.Collections.Generic;
 
 public class SheetGenerator
 {
+    public void GenerateSheet()
+    {
+        MidiConverter midiConverter = new MidiConverter();
+        midiConverter.JsonToMidi("midiData.json", "newMidi.mid");
+    }
+
     public void MidFile()
     {
         var midiFile = new MidiFile("test.mid", false); // Wczytaj plik MIDI
@@ -55,10 +61,19 @@ public class SheetGenerator
                     eventData["Text"] = textEvent.Text;
                     eventData["AbsoluteTime"] = textEvent.AbsoluteTime;
                 }
+                else if(midiEvent is MetaEvent metaEvent)
+                {
+                    Console.WriteLine($"MetaEvent: {metaEvent.MetaEventType}");
+
+                    eventData["EventType"] = metaEvent.GetType().Name;
+                    eventData["AbsoluteTime"] = metaEvent.AbsoluteTime;
+                    eventData["RawMetaEvent"] = metaEvent.MetaEventType;
+                }
                 else
                 {
                     eventData["EventType"] = midiEvent.GetType().Name;
-                    eventData["AbsoluteTime"] = midiEvent.AbsoluteTime;
+                    eventData["AbsoluteTime"] = midiEvent.AbsoluteTime; 
+                    eventData["Channel"] = midiEvent.Channel;
                 }
 
                 // Dodajemy każde zdarzenie do listy
