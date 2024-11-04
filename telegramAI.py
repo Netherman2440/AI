@@ -28,7 +28,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_history = context.chat_data["chatHistory"]
 
     chatBot = ChatBot.ChatBot()
-    response = await chatBot.askAI(message_text, chat_history)
+    response = await chatBot.askAI(chat_history)
 
     context.chat_data["chatHistory"].append({
         "role": "assistant",
