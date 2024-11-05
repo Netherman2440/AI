@@ -51,7 +51,7 @@ When answering, strictly follow these rules:
             # If no rules tag found, append normally
             self.system_prompt += prompt
 
-    async def askAI(self, question: str) -> Task[str]:
+    async def ask(self, question: str) -> str:
         messages = [{ "role": "system", "content": self.system_prompt }, { "role": "user", "content": question }]
         chat_completion = self.client.chat.completions.create(
             messages=messages,
@@ -60,7 +60,7 @@ When answering, strictly follow these rules:
         )
         return chat_completion.choices[0].message.content
 
-    async def askAI_with_history(self, chatHistory: list[dict]) -> Task[str]:
+    async def ask_with_history(self, chatHistory: list[dict]) -> Task[str]:
         
         messages = [{ "role": "system", "content": self.system_prompt }]
         for message in chatHistory:
@@ -82,11 +82,13 @@ When answering, strictly follow these rules:
 
     async def summarize_text(self, chatHistory: list[dict]) -> Task[str]:
         system_prompt = """
-You are a text summarizer. You will be given a list of messages and you need to summarize the text based on the context.
-"""
+        <objective>
+        You are a text summarizer. You will be given a list of messages and you need to summarize the text based on the context.
+        </objective>
+        """
         
         self.add_system_prompt(system_prompt)
 
-        return await self.askAI_with_history(chatHistory)
+        return await self.ask_with_history(chatHistory)
 
 
