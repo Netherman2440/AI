@@ -37,11 +37,30 @@ When answering, strictly follow these rules:
 '''
         print('ChatBot initialized')
 
-    
+    def add_system_prompt(self, prompt: str):
+        # Find the closing </rules> tag
+        rules_end = self.system_prompt.find('</rules>')
+        if rules_end != -1:
+            # Insert the new prompt just before </rules>
+            self.system_prompt = (
+                self.system_prompt[:rules_end] + 
+                "\n- " + prompt + "\n" +
+                self.system_prompt[rules_end:]
+            )
+        else:
+            # If no rules tag found, append normally
+            self.system_prompt += prompt
 
-    
+    async def askAI(self, question: str) -> Task[str]:
+        messages = [{ "role": "system", "content": self.system_prompt }, { "role": "user", "content": question }]
+        chat_completion = self.client.chat.completions.create(
+            messages=messages,
+            model="gpt-4o-mini",
+            max_tokens=150,
+        )
+        return chat_completion.choices[0].message.content
 
-    async def askAI(self, chatHistory: list[dict]) -> Task[str]:
+    async def askAI_with_history(self, chatHistory: list[dict]) -> Task[str]:
         
         messages = [{ "role": "system", "content": self.system_prompt }]
         for message in chatHistory:
@@ -61,6 +80,13 @@ When answering, strictly follow these rules:
         print(f"\033[32mOperation cost: {chat_completion.usage.total_tokens} tokens (${total_cost:.4f})\033[0m")
         return chat_completion.choices[0].message.content
 
-
+    async def summarize_text(self, chatHistory: list[dict]) -> Task[str]:
+        system_prompt = """
+You are a text summarizer. You will be given a list of messages and you need to summarize the text based on the context.
+"""
         
+        self.add_system_prompt(system_prompt)
+
+        return await self.askAI_with_history(chatHistory)
+
 

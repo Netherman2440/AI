@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from telegram import MenuButtonWebApp, Update, InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 
-import ChatBot
+import ChatBot as ChatBot
 
 async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
    context.chat_data["chatHistory"] = []
@@ -47,7 +47,8 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def handle_error(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(f" error")
 
-if __name__ == "__main__":
+def main():
+    load_dotenv()
 
     load_dotenv()
     TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
