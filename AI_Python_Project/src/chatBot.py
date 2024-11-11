@@ -4,12 +4,13 @@ import os
 from dotenv import load_dotenv
 from openai import OpenAI
 
-
-
 class ChatBot:
-    def __init__(self):
+    def __init__(self, client: OpenAI = None, system_prompt: str = None):
+        self.client = client
+        self.system_prompt = system_prompt
+        
         load_dotenv()
-
+        
         self.client = OpenAI(
             api_key=os.getenv('OPENAI_API_KEY'),
             organization=os.getenv('OPENAI_ORGANIZATION'),
@@ -56,7 +57,7 @@ When answering, strictly follow these rules:
         chat_completion = self.client.chat.completions.create(
             messages=messages,
             model="gpt-4o-mini",
-            max_tokens=150,
+            max_tokens=500,
         )
         return chat_completion.choices[0].message.content
 
@@ -71,7 +72,7 @@ When answering, strictly follow these rules:
         chat_completion = self.client.chat.completions.create(
             messages=messages,
             model="gpt-4o-mini",
-            max_tokens=150,
+            max_tokens=300,
         )
         # Calculate cost in dollars (based on GPT-4 pricing)
         cost_per_1k_tokens = 0.03  # $0.03 per 1K tokens

@@ -1,5 +1,10 @@
-
 import json
+
+import sys
+import os
+
+# Dodaj ścieżkę do katalogu nadrzędnego
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from chatBot import ChatBot
 from httpRequest import post
 
