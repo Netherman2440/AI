@@ -180,5 +180,5 @@ artifacts/
 .cursor/
 
 #foldery 
-@przesluchania/
-@Lekcje/
+Resources/@Lekcje/
+Resources/@przesluchania/
