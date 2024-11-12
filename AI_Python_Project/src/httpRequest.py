@@ -1,6 +1,7 @@
 import os
 from typing import Any, Dict
 
+import dotenv
 import requests
 import json
 
@@ -29,6 +30,7 @@ async def get(url: str, api_key: str = None) -> Dict[str, Any]:
 
 async def verify(task: str, answer: str) -> str:
     url = 'https://centrala.ag3nts.org/report'
+    dotenv.load_dotenv()
     api_key = os.getenv('AIDEVS_API_KEY')
     data = json.dumps({
         "task": task,
