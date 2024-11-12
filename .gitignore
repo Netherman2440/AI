@@ -178,3 +178,7 @@ artifacts/
 
 # Pliki Cursor (jeśli są jakieś specyficzne)
 .cursor/
+
+#foldery 
+@przesluchania/
+@Lekcje/
