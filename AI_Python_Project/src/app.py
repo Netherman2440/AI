@@ -1,6 +1,15 @@
 from flask import Flask, request, jsonify
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 app = Flask(__name__)
+
+# Konfiguracja limitera
+limiter = Limiter(
+    app=app,
+    key_func=get_remote_address,
+    default_limits=["1 per 10 seconds"]
+)
 
 # Przykładowa baza danych jako lista słowników
 database = [
@@ -15,11 +24,13 @@ def home():
 
 # Endpoint, który zwraca wszystkie dane z bazy
 @app.route("/quests", methods=["GET"])
+@limiter.limit("1 per 10 seconds")
 def get_all_quests():
     return jsonify(database)
 
 # Endpoint, który zwraca dane konkretnego elementu (np. questa) na podstawie jego ID
 @app.route("/quests/<int:quest_id>", methods=["GET"])
+@limiter.limit("1 per 10 seconds")
 def get_quest(quest_id):
     quest = next((q for q in database if q["id"] == quest_id), None)
     if quest:
