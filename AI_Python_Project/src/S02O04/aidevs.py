@@ -20,12 +20,12 @@ class Aidevs:
             response = await client.get(url)
             return response.json() if is_json else response.text
         
-    async def verify(self, task_id: str, answer: object, is_json: bool = True):
+    async def verify(self, task: str, answer: object, is_json: bool = True):
         url = 'https://centrala.ag3nts.org/report'
 
 
         data = json.dumps({
-            "task": task_id,
+            "task": task,
             "apikey": self.api_key,
             "answer": answer
         })
