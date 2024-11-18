@@ -15,14 +15,14 @@ class OpenAIService:
         messages: list[ChatCompletionMessageParam],
         model: str = "gpt-4o",
         jsonMode: bool = False,
-        max_tokens: int = 300,
+        
         stream: bool = False
     ):
    
         response = self.client.chat.completions.create(
             model=model,
             messages=messages,
-            max_tokens=max_tokens,
+            
         response_format= { "type": "json_object" } if jsonMode else { "type": "text" },
         stream=stream
         )
@@ -36,16 +36,27 @@ class OpenAIService:
         )
         return response.text
     
-    async def photo_to_text(
+    
+
+    async def vision(
             self, 
-            file_path: str,
+            file_path_or_url: str,
             model: str = "gpt-4o",
             jsonMode: bool = False,
             max_tokens: int = 300,
             stream: bool = False
         ):
-        image_data = open(file_path, "rb").read()
-        base64_image = base64.b64encode(image_data).decode("utf-8")
+        # Determine if input is URL or file path
+        is_url = file_path_or_url.startswith(('http://', 'https://'))
+        
+        if is_url:
+            image_url = file_path_or_url
+        else:
+            # Handle local file
+            image_data = open(file_path_or_url, "rb").read()
+            base64_image = base64.b64encode(image_data).decode("utf-8")
+            image_url = f"data:image/jpeg;base64,{base64_image}"
+
         response = self.client.chat.completions.create(
             model=model,
             messages=[
@@ -53,13 +64,13 @@ class OpenAIService:
                     "role": "user",
                     "content": [
                         {
-                        "type": "text",
-                        "text": "What is in this image?",
+                            "type": "text",
+                            "text": "What is in this image?",
                         },
                         {
                             "type": "image_url",
                             "image_url": {
-                                "url":  f"data:image/jpeg;base64,{base64_image}"
+                                "url": image_url
                             },
                         },
                     ],
@@ -70,6 +81,9 @@ class OpenAIService:
             stream=stream
         )
         return response.choices[0].message.content
+
+    
+
 '''
     async def createEmbedding(self, input: str | list[str]):
         response = self.client.embeddings.create(

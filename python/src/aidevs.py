@@ -13,7 +13,10 @@ class Aidevs:
     
     async def get(self, url: str, is_json: bool = True):
 
-        if "KLUCZ" in url:
+        
+        if "KLUCZ-API" in url:
+            url = url.replace("KLUCZ-API", self.api_key)
+        elif "KLUCZ" in url:
             url = url.replace("KLUCZ", self.api_key)
 
         async with httpx.AsyncClient() as client:
