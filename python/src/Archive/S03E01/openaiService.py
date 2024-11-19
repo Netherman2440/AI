@@ -82,20 +82,19 @@ class OpenAIService:
         )
         return response.choices[0].message.content
 
-    async def create_embedding(self, input: str, dimensions: int = 1024):
+    
+
+'''
+    async def createEmbedding(self, input: str | list[str]):
         response = self.client.embeddings.create(
             model="text-embedding-3-large",
             input=input,
-            encoding_format="float",
-            dimensions=dimensions
+            encoding_format="float"
         )
         return response.data[0].embedding
-
-    
-
+'''
 
 # TODO:
 
-# - add jina embedding
 # - add function to count tokens in messages
 # - add function to get tokenizer
