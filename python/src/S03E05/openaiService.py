@@ -82,12 +82,12 @@ class OpenAIService:
         )
         return response.choices[0].message.content
 
-    async def create_embedding(self, input: str, model: str = "text-embedding-3-large"):
+    async def create_embedding(self, input: str, dimensions: int = 3072):
         response = self.client.embeddings.create(
-            model=model,
+            model="text-embedding-3-large",
             input=input,
             encoding_format="float",
-            
+            dimensions=dimensions
         )
         return response.data[0].embedding
 
