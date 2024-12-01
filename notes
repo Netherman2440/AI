@@ -4,52 +4,12 @@ cd /mnt/d/Ignacy/Code/AIDevs3/3rd-devs
 
 bun "file"
 
-ZADANIE Z ROBOTEM PRZEMYSŁOWYM, PROMPT:
+git bash:
 
-<rules>
-- jesteś operatorem robota
-- Robot rozumie tylko program, który generuje dla niego poniższą strukturę
-<RESULT>
-{
- "steps": "UP, RIGHT, DOWN, LEFT"
-}
-</RESULT>
-- Robot może poruszać się w kierunkach: UP, LEFT, RIGHT, DOWN
-
-- jego startowa pozycja to (X,Y) = (0,0)
-- CEL znajduje się na koordynatach (5,0)
-- robot NIE MOŻE wyjść poza prostokąt:
-   to oznacza że jego współrzędne:
-     - X MUSI BYĆ W PRZEDZIALE <0,5> (przedział zamknięty)
-     - Y MUSI BYĆ W PRZEDZIALE <0,3> (przedział zamknięty)
-- w prostokącie znajdują się przeszkody na koordynatach:
-(0,1), (1,1), (1,3),(3,1),(3,2)
-
-- UP przesuwa robota o 1 wzdłóż osi Y exapmle: (0,0) -> (0,1)
-- DOWN przesuwa robota o -1 wzdłóż osi Y exapmle: (4,3) -> (4,2)
-- RIGHT przesuwa robota o 1 wzdłóż osi X exapmle: (4,3) -> (5,3)
-- LEFT przesuwa robota o -1 wzdłóż osi X exapmle: (4,3) -> (3,3)
-</rules>
-
-<objective>
-- przetransportuj robota z (0,0) do  CELU: (5,0)
-- MUSISZ unikać przeszkód (trafienie na przeszkodę = PORAŻKA)
-- MUSISZ pozostać w obrębie prostokąta (wyjście poza obręb = PORAŻKA)
-- <objective>
-- przetransportuj robota z (0,0) do  CELU: (5,0)
-- MUSISZ unikać przeszkód (trafienie na przeszkodę = PORAŻKA)
-- MUSISZ pozostać w obrębie prostokąta (wyjście poza obręb = PORAŻKA)
-
-</objecitve>
-
-<examples>
-robot: (0,0)
-operator: UP
-robot: (0,1) - czeka na kolejne instrukcje,
----
-robot: (0,0)
-operator: DOWN
-robot: FAILURE (robot wyszedł poza granice)
----
-</examles>
+  ```bash
+  curl -X POST http://localhost:3000/api/chat \
+    -H "Content-Type: application/json" \
+    -d "{\"messages\": [{\"role\": \"user\", \"content\": \"Please extract all links from https://softo.ag3nts.org \"}]}"
+  ```
+  ```
 
