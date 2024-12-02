@@ -13,6 +13,7 @@ class DocumentService:
     async def extract(self, documents: list[Document], extraction_type: str, description: str,):
         result: list[Document] = []
         for document in documents:
+            print(document)
             prompt = extract_prompt(extraction_type, description)
 
             messages = [
@@ -21,8 +22,8 @@ class DocumentService:
             ]
 
             response = await self.openaiService.completion(messages)
-            print(response)
-            result.append(Document(text=response, metadata=document.metadata))
+            answer = response.choices[0].message.content
+            result.append(Document(text=answer, metadata=document.metadata))
         return result
 
 

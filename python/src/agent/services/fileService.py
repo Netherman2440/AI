@@ -2,6 +2,7 @@ from datetime import datetime
 import json
 import os
 from urllib.parse import urlparse
+from models.types import Document
 from services.webSearchService import WebSearchService
 
 MIME_TYPES = {
@@ -97,7 +98,7 @@ class FileService:
                 file_content = content.encode('utf-8')
 
                 saved_file = self.save(file_content, file_name, "uuid", 'text', url)
-                return {"text":saved_file, 'mime_type': 'text/markdown'}
+                return [Document(text=content, metadata = None)]
             else:
                 raise ValueError('Failed to scrape content from the URL')
 
